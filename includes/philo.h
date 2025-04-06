@@ -6,7 +6,7 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:56:17 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/06 23:15:44 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:03:23 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdio.h>
+# include <string.h>
 
 typedef struct s_data
 {

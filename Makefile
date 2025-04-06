@@ -6,13 +6,13 @@
 #    By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 13:52:38 by ilbonnev          #+#    #+#              #
-#    Updated: 2025/04/05 00:17:20 by ilbonnev         ###   ########.fr        #
+#    Updated: 2025/04/06 23:32:13 by ilbonnev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = exe
 CC = gcc
-CFLAGS = -g -Wall -Werror -Wextra 
+CFLAGS = -g -Wall -Werror -Wextra -fsanitize=thread
 
 SRC = $(wildcard philo/*.c) 
 

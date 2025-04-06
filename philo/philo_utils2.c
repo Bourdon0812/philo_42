@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_utils.c                                       :+:      :+:    :+:   */
+/*   philo_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 19:45:43 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/06 22:02:26 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:05:09 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,12 @@ void	ft_wait(t_data *data, long long time)
 		pthread_mutex_unlock(&data->is_dead);
 		usleep(50);
 	}
+}
+
+void	one_philo(t_data *data)
+{
+	printf("coucouc\n");
+	printf("%lld\t%d has taken a fork \n", get_time(data->start_time), 1);
+	usleep(data->death_time * 1000);
+	printf("%lld\t%d has died\n", get_time(data->start_time), 1);
 }

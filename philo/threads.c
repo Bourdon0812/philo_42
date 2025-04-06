@@ -6,19 +6,11 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 21:12:58 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/06 23:23:40 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:04:37 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-void	one_philo(t_data *data)
-{
-	printf("coucouc\n");
-	printf("%lld\t%d has taken a fork \n", get_time(data->start_time), 1);
-	usleep(data->death_time * 1000);
-	printf("%lld\t%d has died\n", get_time(data->start_time), 1);
-}
 
 static void	full(t_philo *philo)
 {
