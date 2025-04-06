@@ -6,7 +6,7 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:56:17 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/06 22:13:56 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/04/06 23:15:44 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,8 @@ typedef struct s_philo
 	long long		last_meal;
 	int				is_full;
 	pthread_t		thread;
+	t_data			*data;
 }				t_philo;
-
-typedef struct s_thread_args
-{
-	t_philo	*philo;
-	t_data	*data;
-}	t_thread_args;
 
 /* time_utils.c */
 long long	get_current_time(void);

@@ -6,7 +6,7 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 21:12:58 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/06 22:33:32 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/04/06 23:23:40 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,40 @@ void	one_philo(t_data *data)
 	printf("%lld\t%d has died\n", get_time(data->start_time), 1);
 }
 
+static void	full(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->meal_check);
+	philo->is_full = 1;
+	pthread_mutex_unlock(&philo->data->meal_check);
+}
+
 static void	*philo(void *arg)
 {
-	t_thread_args	*a;
+	t_philo	*philo;
 
-	a = (t_thread_args *)arg;
-	if (a->philo->id % 2 == 0)
+	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
 		usleep(25000);
-	while (1)
+	while (philo->nb_meals != philo->data->lim)
 	{
-		if (!eat(a->philo, a->data))
+		pthread_mutex_lock(&philo->data->is_dead);
+		if (philo->data->philo_dead)
+			return (pthread_mutex_unlock(&philo->data->is_dead), NULL);
+		pthread_mutex_unlock(&philo->data->is_dead);
+		if (!eat(philo, philo->data))
 			break ;
-		if (a->philo->nb_meals == a->data->lim && a->data->lim != -1)
-			break ;
-		pthread_mutex_lock(&(a->data)->is_dead);
-		if (a->data->philo_dead)
+		if (philo->data->lim != philo->nb_meals)
 		{
-			pthread_mutex_unlock(&(a->data)->is_dead);
-			break ;
+			pthread_mutex_lock(&philo->data->is_dead);
+			if (philo->data->philo_dead)
+				return (pthread_mutex_unlock(&philo->data->is_dead), NULL);
+			pthread_mutex_unlock(&philo->data->is_dead);
+			ft_sleep(philo, philo->data);
+			print_task(philo, philo->data, "is thinking");
 		}
-		pthread_mutex_unlock(&(a->data)->is_dead);
-		ft_sleep(a->philo, a->data);
-		print_task(a->philo, a->data, "is thinking");
 	}
-	pthread_mutex_lock(&(a->data)->meal_check);
-	a->philo->is_full = 1;
-	pthread_mutex_unlock(&(a->data)->meal_check);
-	return (free(a), NULL);
+	full(philo);
+	return (NULL);
 }
 
 static int	check_philo_death(t_data *data, t_philo *philo)
@@ -97,17 +104,11 @@ void	check_deaths(t_data *data, t_philo *philos)
 int	init_threads(t_data *data, t_philo *philos)
 {
 	int				i;
-	t_thread_args	*args;
 
 	i = -1;
 	while (++i < data->nb_philo)
 	{
-		args = malloc(sizeof(t_thread_args));
-		if (!args)
-			return (0);
-		args->philo = &philos[i];
-		args->data = data;
-		if (pthread_create(&philos[i].thread, NULL, philo, args))
+		if (pthread_create(&philos[i].thread, NULL, &philo, &philos[i]))
 			return (0);
 		usleep(10);
 	}

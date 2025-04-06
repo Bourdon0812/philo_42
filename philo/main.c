@@ -6,7 +6,7 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:53:18 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/06 22:35:08 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/04/06 23:17:07 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	init_philo(t_philo *philo, t_data *data)
 		philo[i].nb_meals = 0;
 		philo[i].last_meal = data->start_time;
 		philo[i].is_full = 0;
+		philo[i].data = data;
 	}
 }
 
