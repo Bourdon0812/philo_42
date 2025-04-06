@@ -6,29 +6,11 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 00:07:58 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/07 00:04:14 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:08:47 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-/************************ Initialize philos structure *************************/
-void	init_philos(t_data *data, t_philo *philo)
-{
-	int	i;
-
-	data->start_time = get_current_time();
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		memset(&philo[i], 0, sizeof(t_philo));
-		philo[i].data = data;
-		philo[i].id = i + 1;
-		philo[i].nb_meals = 0;
-		philo[i].last_meal = data->start_time;
-		i++;
-	}
-}
 
 /**************** Initialize eating, time, and is_dead mutexes ****************/
 static int	init_mutex3(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:53:18 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/06 23:17:07 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:10:00 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,15 @@ void	init_philo(t_philo *philo, t_data *data)
 {
 	int	i;
 
+	data->start_time = get_current_time();
 	i = -1;
-	while (++i != data->nb_philo)
+	while (++i < data->nb_philo)
 	{
-		philo[i].id = i;
+		memset(&philo[i], 0, sizeof(t_philo));
+		philo[i].data = data;
+		philo[i].id = i + 1;
 		philo[i].nb_meals = 0;
 		philo[i].last_meal = data->start_time;
-		philo[i].is_full = 0;
-		philo[i].data = data;
 	}
 }
 
