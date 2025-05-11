@@ -6,13 +6,12 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 00:07:58 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/07 00:08:47 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:36:26 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-/**************** Initialize eating, time, and is_dead mutexes ****************/
 static int	init_mutex3(t_data *data)
 {
 	int	i;
@@ -40,7 +39,6 @@ static int	init_mutex3(t_data *data)
 	return (1);
 }
 
-/**************** Initialize eating, time, and is_dead mutexes ****************/
 static int	init_mutex2(t_data *data)
 {
 	int	i;

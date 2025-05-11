@@ -6,13 +6,12 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 21:30:46 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/06 22:14:59 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:36:09 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-/***************************** Eat task (part 3) ******************************/
 static int	eat3(t_philo *philo, t_data *data, int left, int right)
 {
 	if (philo->nb_meals == data->lim && data->lim != -1)
