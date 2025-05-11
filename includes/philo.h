@@ -6,7 +6,7 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:56:17 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/07 00:03:23 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/05/11 23:46:36 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <sys/time.h>
 # include <stdio.h>
 # include <string.h>
+
+typedef struct s_philo	t_philo;
 
 typedef struct s_data
 {
@@ -33,6 +35,7 @@ typedef struct s_data
 	pthread_mutex_t		meal_check;
 	pthread_mutex_t		time;
 	pthread_mutex_t		is_dead;
+	t_philo				*philo;
 }	t_data;
 
 typedef struct s_philo
@@ -42,8 +45,10 @@ typedef struct s_philo
 	long long		last_meal;
 	int				is_full;
 	pthread_t		thread;
+	pthread_mutex_t	meal_mutex;
 	t_data			*data;
 }				t_philo;
+
 
 /* time_utils.c */
 long long	get_current_time(void);

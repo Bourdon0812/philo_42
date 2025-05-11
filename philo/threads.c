@@ -6,7 +6,7 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 21:12:58 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/04/07 00:04:37 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/05/11 23:42:31 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ static void	full(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->meal_check);
 }
 
-static void	*philo(void *arg)
+static void	*philo_thread(void *arg)
 {
-	t_philo	*philo;
+	t_philo	*philo = (t_philo *)arg;
 
-	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 		usleep(25000);
 	while (philo->nb_meals != philo->data->lim)
@@ -52,11 +51,14 @@ static int	check_philo_death(t_data *data, t_philo *philo)
 {
 	int	time_since_meal;
 
-	pthread_mutex_lock(&data->time);
+	pthread_mutex_lock(&philo->meal_mutex);
 	time_since_meal = get_time(philo->last_meal);
-	pthread_mutex_unlock(&data->time);
 	if (data->lim != -1 && philo->nb_meals >= data->lim)
+	{
+		pthread_mutex_unlock(&philo->meal_mutex);
 		return (0);
+	}
+	pthread_mutex_unlock(&philo->meal_mutex);
 	if (time_since_meal > data->death_time)
 	{
 		print_task(philo, data, "has died");
@@ -70,11 +72,9 @@ static int	check_philo_death(t_data *data, t_philo *philo)
 
 void	check_deaths(t_data *data, t_philo *philos)
 {
-	int	i;
-	int	full_count;
+	int	i = 0;
+	int	full_count = 0;
 
-	i = 0;
-	full_count = 0;
 	while (full_count < data->nb_philo)
 	{
 		usleep(50);
@@ -95,12 +95,11 @@ void	check_deaths(t_data *data, t_philo *philos)
 
 int	init_threads(t_data *data, t_philo *philos)
 {
-	int				i;
+	int	i = -1;
 
-	i = -1;
 	while (++i < data->nb_philo)
 	{
-		if (pthread_create(&philos[i].thread, NULL, &philo, &philos[i]))
+		if (pthread_create(&philos[i].thread, NULL, &philo_thread, &philos[i]))
 			return (0);
 		usleep(10);
 	}

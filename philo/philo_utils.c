@@ -6,7 +6,7 @@
 /*   By: ilbonnev <ilbonnev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 21:30:46 by ilbonnev          #+#    #+#             */
-/*   Updated: 2025/05/11 21:36:09 by ilbonnev         ###   ########.fr       */
+/*   Updated: 2025/05/11 23:42:04 by ilbonnev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static int	eat3(t_philo *philo, t_data *data, int left, int right)
 		return (0);
 	}
 	print_task(philo, data, "is eating");
-	pthread_mutex_lock(&data->time);
+	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal = get_current_time();
 	philo->nb_meals++;
-	pthread_mutex_unlock(&data->time);
+	pthread_mutex_unlock(&philo->meal_mutex);
 	ft_wait(data, data->eat_time);
 	pthread_mutex_unlock(&data->forks[left]);
 	pthread_mutex_unlock(&data->forks[right]);
@@ -95,8 +95,6 @@ void	print_task(t_philo *philo, t_data *data, char *msg)
 		return ;
 	}
 	pthread_mutex_unlock(&data->is_dead);
-	printf("%lld\t", time);
-	printf("%d %s", philo->id, msg);
-	printf("\033[0;37m\n\033[0m");
+	printf("%lld\t%d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(&data->log);
 }
